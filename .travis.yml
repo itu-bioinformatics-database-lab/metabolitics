@@ -1,0 +1,9 @@
+language: python
+
+python:
+  - "3.5.2"
+
+script: coverage run setup.py test
+
+after_success:
+  - codecov

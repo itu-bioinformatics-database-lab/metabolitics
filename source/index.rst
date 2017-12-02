@@ -7,3 +7,21 @@
 
 API Documentation
 ==================
+
+
+Analysis
+-----------
+		   
+.. automodule:: metabolitics.analysis
+                :members:
+                :undoc-members:
+                :show-inheritance:
+
+Extensions
+-----------
+
+.. automodule:: metabolitics.extensions
+                :members:
+                :undoc-members:
+                :show-inheritance:
+

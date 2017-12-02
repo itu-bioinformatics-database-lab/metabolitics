@@ -15,6 +15,7 @@ setup(
         'scipy>=0.13.3',
         'scikit-learn>=0.19.1',
         'cobra>=0.9.1',
+        'joblib>=0.11',
         'sklearn_utils',
     ],
     include_package_data=True,

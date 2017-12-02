@@ -1,8 +1,11 @@
 import cobra
 
 from sympy.core.singleton import S
+from cobra.util import fix_objective_as_constraint
+from cobra.flux_analysis import flux_variability_analysis
 
 import metabolitics.extensions
+from metabolitics.utils import load_network_model
 
 
 class MetaboliticsAnalysis:
@@ -10,14 +13,15 @@ class MetaboliticsAnalysis:
     Metabolitics analysis for metabolic dataset.
     '''
 
-    def __init__(self, model, without_transports=True):
+    def __init__(self, model, without_transports=True, timeout=10 * 60):
         '''
         :model: cobra Model
         '''
-        self.model = model
+        self.model = load_network_model(model)
+        self.model.solver.configuration.timeout = timeout
         self.without_transports = without_transports
 
-    def update_objective_coefficients(self, measured_metabolites):
+    def set_objective(self, measured_metabolites):
         '''
         Updates objective function for given measured metabolites.
         :measured_metabolites: dict in which keys are metabolite names 
@@ -34,8 +38,24 @@ class MetaboliticsAnalysis:
                 update_rate = v * r.metabolites[m] / total_stoichiometry
                 r.objective_coefficient += update_rate
 
+    def add_constraint(self, measured_metabolites):
+        '''
+        Add measurements as constraint to model.
+        :measured_metabolites: dict in which keys are metabolite names 
+        and values are float numbers represent fold changes in metabolites.
+        '''
+        self.set_objective(measured_metabolites)
+        fix_objective_as_constraint(self.model)
+
+    def variability_analysis(self, measured_metabolites):
+        self.set_objective(measured_metabolites)
+        return flux_variability_analysis(self.model)
+
     def clean_objective(self):
         '''
         Cleans previous objective.
         '''
         self.model.objective = S.Zero
+
+    def copy(self):
+        return MetaboliticsAnalysis(self.model.copy())

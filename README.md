@@ -1,6 +1,6 @@
 # Metabolitics
 
-[![Build Status](https://travis-ci.org/MuhammedHasan/metabolitics.svg?branch=master)](https://travis-ci.org/MuhammedHasan/sklearn_utils) [![Documentation Status](https://readthedocs.org/projects/metabolitics/badge/?version=latest)](http://metabolitics.readthedocs.io/en/latest/?badge=latest) [![codecov](https://codecov.io/gh/MuhammedHasan/metabolitics/branch/master/graph/badge.svg)](https://codecov.io/gh/MuhammedHasan/metabolitics)
+[![Build Status](https://travis-ci.org/MuhammedHasan/metabolitics.svg?branch=master)](https://travis-ci.org/MuhammedHasan/metabolitics) [![Documentation Status](https://readthedocs.org/projects/metabolitics/badge/?version=latest)](http://metabolitics.readthedocs.io/en/latest/?badge=latest) [![codecov](https://codecov.io/gh/MuhammedHasan/metabolitics/branch/master/graph/badge.svg)](https://codecov.io/gh/MuhammedHasan/metabolitics)
 
 ...
 

@@ -18,7 +18,7 @@ class ReactionDiffTransformer(TransformerMixin):
     def transform(self, X, y=None):
         return [{
             reaction.id: self._reaction_flux_diff(reaction, x)
-            for reaction in self.model.reactions if '%s_max' % reaction in x
+            for reaction in self.model.reactions if '%s_max' % reaction.id in x
         } for x in X]
 
     def _reaction_flux_diff(self, reaction, x):

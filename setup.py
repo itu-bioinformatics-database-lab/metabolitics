@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='metabolitics',
-    version='0.0.6',
+    version='0.0.8',
     packages=find_packages(),
     description='metabolitics',
     author="Muhammed Hasan Celik",

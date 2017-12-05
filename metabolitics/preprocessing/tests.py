@@ -36,7 +36,7 @@ class TestReactionDiffTransformer(unittest.TestCase):
 
     def test_fit_transform(self):
         sub_scores = self.scaler.fit_transform(self.X, self.y)
-        self.assertTrue(sub_scores, [{'TAXOLte_dif': 0}, {'TAXOLte_dif': 1}])
+        self.assertEqual(sub_scores, [{'TAXOLte': 0}, {'TAXOLte': 3}])
 
 
 class TestPathwayTransformer(unittest.TestCase):

@@ -17,6 +17,22 @@ Analysis
                 :undoc-members:
                 :show-inheritance:
 
+Preprocessing
+-----------
+		   
+.. automodule:: metabolitics.preprocessing
+                :members:
+                :undoc-members:
+                :show-inheritance:
+
+Preprocessing
+-----------
+		   
+.. automodule:: metabolitics.utils
+                :members:
+                :undoc-members:
+                :show-inheritance:
+		   
 Extensions
 -----------
 

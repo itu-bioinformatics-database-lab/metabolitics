@@ -1,6 +1,10 @@
 import unittest
 
 from .metabolitics_transformer import MetaboliticsTransformer
+from .pathway_reaction_enrichment import PathwayReactionEnrichment
+from .reaction_diff_transformer import ReactionDiffTransformer
+from .pathway_transformer import PathwayTransformer
+from .metabolitics_pipeline import MetaboliticsPipeline
 
 
 class TestMetaboliticsTransformer(unittest.TestCase):
@@ -17,3 +21,71 @@ class TestMetaboliticsTransformer(unittest.TestCase):
         results = self.transformer.fit_transform(self.X)
         self.assertIn('GLUDy_max', results[0])
         self.assertIn('GLUDy_min', results[0])
+
+
+class TestReactionDiffTransformer(unittest.TestCase):
+    def setUp(self):
+        self.scaler = ReactionDiffTransformer()
+        self.h = {'TAXOLte_max': 1, 'TAXOLte_min': -1}
+        self.X = [self.h, {'TAXOLte_max': 2, 'TAXOLte_min': 1}]
+        self.y = ['healthy', 'bc']
+
+    def test_fit(self):
+        self.scaler.fit(self.X, self.y)
+        self.assertEqual(self.scaler.healthy_flux, self.h)
+
+    def test_fit_transform(self):
+        sub_scores = self.scaler.fit_transform(self.X, self.y)
+        self.assertTrue(sub_scores, [{'TAXOLte_dif': 0}, {'TAXOLte_dif': 1}])
+
+
+class TestPathwayTransformer(unittest.TestCase):
+    def setUp(self):
+        self.model = PathwayTransformer()
+        self.X = [{'TAXOLte': 1, 'MAL_Lte': -4}]
+
+    def test_fit_transform(self):
+        X_t = self.model.fit_transform(self.X)
+        self.assertTrue(X_t, [{'Transport, extracellular': -1.5}])
+
+
+class TestPathwayReactionEnrichment(unittest.TestCase):
+    def setUp(self):
+        self.X = [{
+            'GLUDym_dif': 1,
+            'GLUNm_dif': -1,
+            'GLNS_dif': 0.0001,
+            'P5CDm_dif': 100
+        }, {
+            'GLUDym_dif': 1,
+            'GLUNm_dif': 2,
+            'GLNS_dif': -1
+        }]
+        self.y = ['healthy', 'x']
+
+        self.preprocessing = PathwayReactionEnrichment()
+
+    def test_init(self):
+        glu = self.preprocessing.feature_groups['Glutamate metabolism']
+
+        self.assertTrue('GLUDym_dif' in glu)
+        self.assertTrue('GLUNm_dif' in glu)
+        self.assertTrue('GLNS_dif' in glu)
+        self.assertTrue('P5CDm_dif' in glu)
+
+    def test_fit(self):
+        self.preprocessing.fit(self.X, self.y)
+        self.assertEqual(dict(self.preprocessing._references), self.X[0])
+
+    def test_transform(self):
+        pvals = self.preprocessing.fit_transform(self.X, self.y)
+        self.assertEqual(list(pvals[0].keys())[0], 'Glutamate metabolism')
+        self.assertEqual(list(pvals[0].values())[0], 1)
+
+
+class TestMetaboliticsPipeline(unittest.TestCase):
+    def setUp(self):
+        self.pipeline = MetaboliticsPipeline()
+
+    def test_pipeline(self):
+        self.assertGreater(len(self.pipeline.steps), 0)

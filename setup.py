@@ -16,7 +16,7 @@ setup(
         'scikit-learn>=0.19.1',
         'cobra>=0.9.1',
         'joblib>=0.11',
-        'sklearn_utils',
+        'sklearn_utils>=0.0.9',
     ],
     include_package_data=True,
     test_suite='metabolitics.tests',

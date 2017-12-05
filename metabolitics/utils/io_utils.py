@@ -1,3 +1,4 @@
+import json
 import os
 
 import cobra as cb
@@ -8,6 +9,7 @@ DATASET_PATH = os.path.join(PROJECT_ROOT, 'datasets')
 
 
 def load_network_model(model):
+    '''Loads metabolic network models in metabolitics.'''
     if type(model) == str:
         if model in ['ecoli', 'textbook', 'salmonella']:
             return cb.test.create_test_model(model)
@@ -16,3 +18,9 @@ def load_network_model(model):
                                          (DATASET_PATH, model))
     if type(model) == cb.Model:
         return model
+
+
+def load_naming(naming='recon'):
+    '''Loads example naming file for recon.'''
+    with open('%s/naming/%s-naming.json' % (DATASET_PATH, naming)) as f:
+        return json.load(f)

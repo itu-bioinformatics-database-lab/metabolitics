@@ -10,8 +10,8 @@ class MetaboliticsTransformer(TransformerMixin):
 
     def __init__(self, network_model="recon2", n_jobs=-1):
         '''
-        :network_model: cobra.Model or name of the model. 
-        :n_jobs: the maximum number of concurrently running jobs.
+        :param network_model: cobra.Model or name of the model. 
+        :param n_jobs: the maximum number of concurrently running jobs.
         '''
         self.analyzer = MetaboliticsAnalysis(network_model)
         self.n_jobs = n_jobs
@@ -21,7 +21,7 @@ class MetaboliticsTransformer(TransformerMixin):
 
     def transform(self, X, y=None):
         '''
-        :X: list of dict which contains metabolic measurements.
+        :param X: list of dict which contains metabolic measurements.
         '''
         return Parallel(n_jobs=self.n_jobs)(delayed(self._transform)(x)
                                             for x in X)

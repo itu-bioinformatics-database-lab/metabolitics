@@ -14,8 +14,8 @@ class PathwayReactionEnrichment(FunctionalEnrichmentAnalysis):
                  network_model='recon2',
                  **kwargs):
         '''
-        :reference_label: label of refence values in the calculation
-        :dataset_name: name of metabolitics network
+        :param str reference_label: label of refence values in the calculation
+        :param str dataset_name: name of metabolitics network
         '''
         model = load_network_model(network_model)
 

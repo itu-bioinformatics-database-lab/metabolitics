@@ -18,14 +18,14 @@ Analysis
                 :show-inheritance:
 
 Preprocessing
------------
+--------------
 		   
 .. automodule:: metabolitics.preprocessing
                 :members:
                 :undoc-members:
                 :show-inheritance:
 
-Preprocessing
+Utils
 -----------
 		   
 .. automodule:: metabolitics.utils

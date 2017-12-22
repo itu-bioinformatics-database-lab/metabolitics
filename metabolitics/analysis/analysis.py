@@ -15,7 +15,7 @@ class MetaboliticsAnalysis:
 
     def __init__(self, model, without_transports=True, timeout=10 * 60):
         '''
-        :model: cobra Model
+        :param model: cobra Model
         '''
         self.model = load_network_model(model)
         self.model.solver.configuration.timeout = timeout
@@ -24,8 +24,9 @@ class MetaboliticsAnalysis:
     def set_objective(self, measured_metabolites):
         '''
         Updates objective function for given measured metabolites.
-        :measured_metabolites: dict in which keys are metabolite names 
-        and values are float numbers represent fold changes in metabolites. 
+
+        :param dict measured_metabolites: dict in which keys are metabolite names 
+            and values are float numbers represent fold changes in metabolites. 
         '''
         self.clean_objective()
         for k, v in measured_metabolites.items():
@@ -41,8 +42,9 @@ class MetaboliticsAnalysis:
     def add_constraint(self, measured_metabolites):
         '''
         Add measurements as constraint to model.
-        :measured_metabolites: dict in which keys are metabolite names 
-        and values are float numbers represent fold changes in metabolites.
+
+        :param dict measured_metabolites: dict in which keys are metabolite names 
+            and values are float numbers represent fold changes in metabolites.
         '''
         self.set_objective(measured_metabolites)
         fix_objective_as_constraint(self.model)

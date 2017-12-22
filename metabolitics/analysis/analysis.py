@@ -60,4 +60,4 @@ class MetaboliticsAnalysis:
         self.model.objective = S.Zero
 
     def copy(self):
-        return MetaboliticsAnalysis(self.model.copy())
+        return self.__class__(self.model.copy(), self.without_transports)

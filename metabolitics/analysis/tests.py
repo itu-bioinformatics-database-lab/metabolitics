@@ -21,3 +21,6 @@ class TestMetaboliticsAnalysis(unittest.TestCase):
     def test_variability_analysis(self):
         df = self.analyzer.variability_analysis(self.measurements)
         self.assertIsNotNone(df)
+
+    def test_copy(self):
+        self.assertIsNotNone(self.analyzer.copy())

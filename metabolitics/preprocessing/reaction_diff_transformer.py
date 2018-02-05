@@ -17,10 +17,18 @@ class ReactionDiffTransformer(TransformerMixin):
 
     def transform(self, X, y=None):
         return [{
-            reaction.id: self._reaction_flux_diff(reaction, x)
-            for reaction in self.model.reactions if '%s_max' % reaction.id in x
+            reaction.id: self._reaction_flux_diff(reaction.id, x)
+            for reaction in self.model.reactions
+            if self._is_valid_for_diff(reaction.id, x)
         } for x in X]
 
-    def _reaction_flux_diff(self, reaction, x):
-        f_score = lambda label: x[label] - self.healthy_flux[label]
-        return sum(f_score('%s_%s' % (reaction.id, i)) for i in ['min', 'max'])
+    def _reaction_flux_diff(self, r_id: str, x):
+        return sum(map(lambda r: x[r] - self.healthy_flux[r],
+                       self._r_max_min(r_id)))
+
+    def _r_max_min(self, r_id):
+        return '%s_max' % r_id, '%s_min' % r_id
+
+    def _is_valid_for_diff(self, r_id, x):
+        return all(i in x and i in self.healthy_flux
+                   for i in self._r_max_min(r_id))

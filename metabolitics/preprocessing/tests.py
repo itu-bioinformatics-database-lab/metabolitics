@@ -27,7 +27,8 @@ class TestReactionDiffTransformer(unittest.TestCase):
     def setUp(self):
         self.scaler = ReactionDiffTransformer()
         self.h = {'TAXOLte_max': 1, 'TAXOLte_min': -1}
-        self.X = [self.h, {'TAXOLte_max': 2, 'TAXOLte_min': 1}]
+        self.X = [self.h, {'TAXOLte_max': 2,
+                           'TAXOLte_min': 1, 'MAL_Lte_max': 1}]
         self.y = ['healthy', 'bc']
 
     def test_fit(self):

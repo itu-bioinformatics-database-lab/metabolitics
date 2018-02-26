@@ -7,6 +7,8 @@ from .pathway_reaction_enrichment import PathwayReactionEnrichment
 from .reaction_diff_transformer import ReactionDiffTransformer
 from .pathway_transformer import PathwayTransformer
 from .metabolitics_pipeline import MetaboliticsPipeline
+from .transport_pathway_elimination import TransportPathwayElimination
+
 
 __all__ = [
     'MetaboliticsTransformer',
@@ -14,4 +16,5 @@ __all__ = [
     'ReactionDiffTransformer',
     'PathwayTransformer',
     'MetaboliticsPipeline',
+    'TransportPathwayElimination'
 ]

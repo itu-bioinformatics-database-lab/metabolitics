@@ -2,7 +2,7 @@ import unittest
 
 import cobra as cb
 
-from .io_utils import load_network_model, load_naming
+from .io_utils import load_network_model, load_metabolite_mapping
 
 
 class TestIOUtils(unittest.TestCase):
@@ -19,4 +19,5 @@ class TestIOUtils(unittest.TestCase):
         self.assertGreater(len(recon2.metabolites), 1000)
 
     def test_load_naming(self):
-        self.assertGreater(len(load_naming()), 0)
+        for i in {'kegg', 'pubChem', 'cheBl', 'hmdb', 'toy'}:
+            self.assertGreater(len(load_metabolite_mapping(i)), 0)

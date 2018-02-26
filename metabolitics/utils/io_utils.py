@@ -9,7 +9,11 @@ DATASET_PATH = os.path.join(PROJECT_ROOT, 'datasets')
 
 
 def load_network_model(model):
-    '''Loads metabolic network models in metabolitics.'''
+    '''
+    Loads metabolic network models in metabolitics.
+
+    :param str model: model name
+    '''
     if type(model) == str:
         if model in ['ecoli', 'textbook', 'salmonella']:
             return cb.test.create_test_model(model)
@@ -20,7 +24,13 @@ def load_network_model(model):
         return model
 
 
-def load_naming(naming='recon'):
-    '''Loads example naming file for recon.'''
-    with open('%s/naming/%s-naming.json' % (DATASET_PATH, naming)) as f:
+def load_metabolite_mapping(naming_file='pubChem'):
+    '''
+    Loads metabolite name mapping from different databases to recon.
+
+    :param str naming_file: names of databases
+    valid options {'kegg', 'pubChem', 'cheBl', 'hmdb', 'toy'}
+    '''
+
+    with open('%s/naming/%s-mapping.json' % (DATASET_PATH, naming_file)) as f:
         return json.load(f)

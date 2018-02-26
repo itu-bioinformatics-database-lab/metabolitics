@@ -5,6 +5,7 @@ from .pathway_reaction_enrichment import PathwayReactionEnrichment
 from .reaction_diff_transformer import ReactionDiffTransformer
 from .pathway_transformer import PathwayTransformer
 from .metabolitics_pipeline import MetaboliticsPipeline
+from .transport_pathway_elimination import TransportPathwayElimination
 
 
 class TestMetaboliticsTransformer(unittest.TestCase):
@@ -90,3 +91,17 @@ class TestMetaboliticsPipeline(unittest.TestCase):
 
     def test_pipeline(self):
         self.assertGreater(len(self.pipeline.steps), 0)
+
+
+class TestTransportElimination(unittest.TestCase):
+    def setUp(self):
+        self.data = [
+            {'Transport, a': 0, 'b': 2, '': 1},
+            {'a': 0, 'Transport, b': 1}
+        ]
+        self.tranformer = TransportPathwayElimination()
+
+    def test_transform(self):
+        expected = [{'b': 2}, {'a': 0}]
+        calculated = self.tranformer.transform(self.data)
+        self.assertEqual(calculated, expected)

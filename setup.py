@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='metabolitics',
-    version='0.0.10',
+    version='0.0.12',
     packages=find_packages(),
     description='metabolitics',
     author="Muhammed Hasan Celik",
@@ -16,7 +16,7 @@ setup(
         'scikit-learn>=0.18.0',
         'cobra>=0.9.1',
         'joblib>=0.11',
-        'sklearn_utils>=0.0.14',
+        'sklearn_utils>=0.0.15',
     ],
     include_package_data=True,
     test_suite='metabolitics.tests',

@@ -23,9 +23,26 @@ class ReactionDiffTransformer(TransformerMixin):
         } for x in X]
 
     def _reaction_flux_diff(self, r_id: str, x):
-        return sum(map(lambda r: x[r] - self.healthy_flux[r],
-                       self._r_max_min(r_id)))
+        r_max, r_min = self._r_max_min(r_id)
+        h_max = self.healthy_flux[r_max]
+        h_min = self.healthy_flux[r_min]
+        r_max, r_min = x[r_max], x[r_min]
+        
+        r_rev_max = abs(min(r_min, 0))
+        r_rev_min = abs(min(r_max, 0))
+        r_max = max(r_max, 0)
+        r_min = max(r_min, 0)
 
+        h_rev_max = abs(min(h_min, 0))
+        h_rev_min = abs(min(h_max, 0))
+        h_max = max(h_max, 0)
+        h_min = max(h_min, 0)
+        
+        for_score = (r_max - h_max) + (r_min - h_min)
+        rev_score = (r_rev_max - h_rev_max) + (r_rev_min - h_rev_min)
+        
+        return for_score + rev_score
+        
     def _r_max_min(self, r_id):
         return '%s_max' % r_id, '%s_min' % r_id
 

@@ -10,7 +10,7 @@ future==0.16.0
 idna==2.6
 imagesize==0.7.1
 Jinja2==2.10
-joblib==0.11
+joblib==1.2.0
 m2r==0.1.12
 MarkupSafe==1.0
 mistune==0.8.3
